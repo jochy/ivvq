@@ -3,6 +3,7 @@ package org.example.ivvq.task;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -47,7 +48,21 @@ public class TaskService {
     public List<Task> listTodo() {
         return repository.list()
                 .stream()
-                .filter(Task::isCompleted)
+                .filter(t -> !t.isCompleted())
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Adds a new task
+     * @param title the task's title
+     * @return the {@link Task} added
+     */
+    public Task newTask(String title) {
+        Task t = new Task();
+        t.setId(repository.list().size() + "");
+        t.setUserId(UUID.randomUUID().toString());
+        t.setTitle(title);
+        repository.add(t);
+        return t;
     }
 }

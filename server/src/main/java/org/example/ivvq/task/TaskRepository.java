@@ -57,4 +57,12 @@ public class TaskRepository {
                 .map(Task.class::cast)
                 .collect(Collectors.toList());
     }
+
+    /**
+     * Adds a new task
+     * @param task
+     */
+    public void add(Task task) {
+        db.put(task.getId(), task);
+    }
 }

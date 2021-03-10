@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Controller for tasks
@@ -37,6 +38,18 @@ public class TaskController {
     @GetMapping("/{id}")
     public String get(@PathVariable("id") String id, Model model) {
         model.addAttribute("task", service.get(id));
+        return "get.html";
+    }
+
+    /**
+     * Adds a new task
+     * @param title the task title
+     * @param model the {@link Model} for Thymeleaf
+     * @return the template to display
+     */
+    @GetMapping("/newTask")
+    public String newTask(@RequestParam("title") String title, Model model) {
+        model.addAttribute("task", service.newTask(title));
         return "get.html";
     }
 
